@@ -43,6 +43,9 @@ main {
     width: 20%;
 } 
 
+.car-container .components .enabled{
+    border: 5px solid #ffff48;
+}
 
 /* ====================== PEDALS ======================*/
 .pedal {
@@ -82,3 +85,25 @@ main {
 @keyframes steerWheel {
     
 } */
+
+.camera{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    right: 47%;
+    top: 58%;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.rear-view-mirror{
+    position: absolute;
+    top: 45px;
+    right: 40.3%;
+    width: 350px;
+    height: 170px;
+    border-bottom-right-radius: 50px 185px;
+    border-bottom-left-radius: 50px 185px;
+    border-top-left-radius: 230px 40px;
+    border-top-right-radius: 230px 40px;
+}
