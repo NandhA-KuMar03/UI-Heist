@@ -14,19 +14,52 @@ function updateFuel(isConsumed, isRefilled) {
     }
 }
 
+function showMap(){
+    let $mapContainer = $('.google-map');
+    function embedMap(position){
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        $mapContainer.empty().append('<iframe src = "https://maps.google.com/maps?q=' + latitude + ',' + longitude + '&hl=es;z=14&amp;output=embed"></iframe>');
+    }
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(embedMap, showError);
+    }
+    function showError(error) {
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            $mapContainer.empty().append("User denied the request for Geolocation");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            $mapContainer.empty().append("Location information is unavailable.");
+            break;
+          case error.UNKNOWN_ERROR:
+            $mapContainer.empty().append("An unknown error occurred.");
+            break;
+        }
+      }
+}
+
 function startCar() {
     if(!car.isOn) {
         car.isOn = true;
         car.fuel = 60;
         $(".engine").css({"background-color": colors.ENGINE_START});
         $("#engineStartAudio")[0].play();
+        showMap();
     }
 }
 
 function stopCar() {
     if(car.isOn){
         car.isOn = false;
-    
+        const $greetingsContainer = $('.greetings-container');
+        const $timeContainer = $('.time-container');
+        const $temperatureContainer = $('.temperature-container');
+        const $mapContainer = $('.google-map');
+        $greetingsContainer.empty();
+        $timeContainer.empty();
+        $temperatureContainer.empty();
+        $mapContainer.empty();
         $(".engine").css({"background-color": colors.ENGINE_STOP});
         // TODO: replace with engine off sound
         $("#engineStartAudio")[0].play();
