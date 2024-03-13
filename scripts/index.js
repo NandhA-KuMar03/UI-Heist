@@ -18,8 +18,7 @@ function startCar() {
     if(!car.isOn) {
         car.isOn = true;
         car.fuel = 60;
-    
-        $(".engine").css({"background-color": colors.ENGINE_START, "transition-duration": "1000ms"});
+        $(".engine").css({"background-color": colors.ENGINE_START});
         $("#engineStartAudio")[0].play();
     }
 }
@@ -28,32 +27,28 @@ function stopCar() {
     if(car.isOn){
         car.isOn = false;
     
-        $(".engine").css("background-color", colors.ENGINE_STOP);
+        $(".engine").css({"background-color": colors.ENGINE_STOP});
         // TODO: replace with engine off sound
         $("#engineStartAudio")[0].play();
     }
 }
 
 function accelerate(isAccelerated) {
-    if(car.isOn) {
-        if(isAccelerated) {
-            $(".dash").addClass("active-ac");
-            $(".pedal .accelerator").css({"transform": "rotateX(40deg)"});
-        } else {
-            $(".dash").removeClass("active-ac");
-            $(".pedal .accelerator").css({"transform": "rotateX(0deg)"});
-        }
+    if(isAccelerated) {
+        if(car.isOn) $(".dash").addClass("active-ac"); 
+        $(".pedal .accelerator").css({"transform": "rotateX(40deg)"});
+    } else {
+        if(car.isOn) $(".dash").removeClass("active-ac");
+        $(".pedal .accelerator").css({"transform": "rotateX(0deg)"});
     }
 }
 
 function brakeActions(action) {
-    if(car.isOn) {
-        let $brakePedal = $(".pedal .brake");
-        if(action === "apply")
-            $brakePedal.css({transform: "scale(0.8)"});
-        else if(action=="release")
-            $brakePedal.css({transform: "scale(1)"});
-    }
+    let $brakePedal = $(".pedal .brake");
+    if(action === "apply")
+        $brakePedal.css({transform: "scale(0.8)"});
+    else if(action=="release")
+        $brakePedal.css({transform: "scale(1)"});
 }
 
 function steerWheel(direction, isReleased) {

@@ -1,25 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis:400,700');
+@import url("https://fonts.googleapis.com/css?family=Dosis:400,700");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
-img{
-    max-width: 100%;
+img {
+  max-width: 100%;
 }
 
-body, main, html {
+body,
+main,
+html {
   height: 100vh;
 }
 
 main {
-    background : #2a2929;
+  background: #2a2929;
 }
 
-.car-container  {
-  background-image:  url("../assets/images/Car-without-bg.png");
+.car-container {
+  background-image: url("../assets/images/car-with-bg.png");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,166 +29,258 @@ main {
 }
 
 .car-container .components {
-    border: 1px solid red;
-
-    position: relative;
-    width: 64%;
-    margin: 42vh auto 0;
-    height: 60vh;
-}
-.car-container .components .dashboard {
-    border: 1px solid white;
+  position: relative;
+  width: 64%;
+  margin: 42vh auto 0;
+  height: 60vh;
 }
 
 .car-container .components .dashboard > * {
-    position: absolute;
+  position: absolute;
+}
+
+.fuel-gauge {
+  opacity: 0.75;
+  height: 160px;
+  width: 25px;
+  top: 2%;
+  left: 18%;
+}
+
+.levels {
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+  padding: 4px 3px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+/* paint not glowing LEDs */
+.level {
+  position: relative;
+  margin: 0 2px;
+  flex-grow: 1;
+  z-index: 3;
+  background-color: transparent;
+  background-repeat: repeat-y;
+  background-image: linear-gradient(to bottom, #66666650 3px, transparent 1px);
+  background-size: 100% 4px;
+}
+
+/* paint glowing LEDs */
+.level:before {
+  width: 100%;
+  height: 100%;
+  content: " ";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to top, red 0%, yellow 50%,green 100%);
+  background-size: 100% 100%;
+  filter: drop-shadow(0px 0px 7px #ffffff99);
+  animation: level-animation 2500ms;
+}
+
+@keyframes level-animation {
+  0% {
+    clip-path: inset(0% 0 0 0);
+  }
+  50% {
+    clip-path: inset(40% 0 0 0);
+  }
+  100% {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+/* paint gap lines of LEDs */
+.level::after {
+  width: 100%;
+  height: 100%;
+  content: " ";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  margin-top: 3px;
+  background-image: linear-gradient(
+    to bottom,
+    black 1px /* space between leds*/,
+    transparent 1px
+  );
+  background-repeat: repeat-y;
+  background-size: 100% 4px; /* 4px LED height */
+  background-color: transparent;
 }
 
 .dash-panel {
-    height: 160px;
-    width: 160px;
-    border: 3px solid #3d85ea;
-    color: #3d85ea;
-    border-radius: 50%;
-    position: relative;
-    display: block;
-    overflow: hidden;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    background: radial-gradient(#3d85ea 10%, #2a2a2a 10%);
+  height: 150px;
+  width: 150px;
+  border: 3px solid #3d85ea;
+  color: #3d85ea;
+  border-radius: 50%;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  top: 6%;
+  left: 30%;
+  transform: translateX(-50%);
+  background: radial-gradient(#3d85ea 10%, #2a2a2a 10%);
 }
 .dash-panel span {
-    font-size: 10px;
-    font-style: italic;
-    position: absolute;
+  font-size: 10px;
+  font-style: italic;
+  position: absolute;
 }
 .dash-panel span:nth-child(1) {
-    top: 60%;
-    left: 8%;
+  top: 60%;
+  left: 8%;
 }
 .dash-panel span:nth-child(2) {
-    top: 40%;
-    left: 5%;
+  top: 40%;
+  left: 5%;
 }
 .dash-panel span:nth-child(3) {
-    top: 22%;
-    left: 10%;
+  top: 22%;
+  left: 10%;
 }
 .dash-panel span:nth-child(4) {
-    top: 8%;
-    left: 24%;
+  top: 8%;
+  left: 24%;
 }
 .dash-panel span:nth-child(5) {
-    top: 3%;
-    left: 47%;
+  top: 3%;
+  left: 47%;
 }
 .dash-panel span:nth-child(6) {
-    top: 8%;
-    right: 25%;
+  top: 8%;
+  right: 25%;
 }
 .dash-panel span:nth-child(7) {
-    top: 22%;
-    right: 12%;
+  top: 22%;
+  right: 12%;
 }
 .dash-panel span:nth-child(8) {
-    top: 40%;
-    right: 7%;
+  top: 40%;
+  right: 7%;
 }
 .dash-panel span:nth-child(9) {
-    top: 60%;
-    right: 10%;
+  top: 60%;
+  right: 10%;
 }
 .dash-panel span:nth-child(10) {
-    font-size: 0.8em;
-    top: 15%;
-    right: 42.5%;
+  font-size: 0.8em;
+  top: 15%;
+  right: 42.5%;
 }
 
 .dash {
-    width: 5px;
-    height: 50px;
-    background-color: #3d85ea;
-    position: relative;
-    display: block;
-    transition: all 10s ease;
-    transform: rotate(66deg);
-    transform-origin: top right;
-    margin: 100px auto;
-    margin-top: 50%;
-    margin-right: 50%;
-    border-radius: 0px 0px 50% 50%;
+  width: 5px;
+  height: 50px;
+  background-color: #3d85ea;
+  position: relative;
+  display: block;
+  transition: all 10s ease;
+  transform: rotate(66deg);
+  transform-origin: top right;
+  margin: 100px auto;
+  margin-top: 50%;
+  margin-right: 50%;
+  border-radius: 0px 0px 50% 50%;
 }
 
 .active-ac {
-    transform: rotate(293deg);
+  transform: rotate(293deg);
 }
 
 .car-container .components .dashboard .engine {
-    height: 45px;
-    width: 45px;
-    right: 14.5%;
-    top: 26%;
-    border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  right: 14.5%;
+  top: 26%;
+  border-radius: 50%;
 }
 
 .car-container .components .steer-wheel {
-    position : absolute;
-    right: 19%;
-    width: 16%;
-    top: 12%;
-} 
+  position: absolute;
+  width: 20%;
+  top: 4%;
+  right: 17%;
+}
 
-.car-container .components .enabled{
-    border: 5px solid #ffff48;
+.car-container .components .enabled {
+  border: 5px solid #ffff48;
 }
 
 /* ====================== PEDALS ======================*/
 .pedal {
-    position: absolute;
-    display: block;
-    height: 90px;
-    width: 67px;
-    perspective: 700px;
-    bottom: 38%;
+  position: absolute;
+  display: block;
+  height: 90px;
+  width: 67px;
+  perspective: 700px;
+  bottom: 38%;
 }
-.pedal>* {
-    border-radius: 25%;
-    padding: 10px;
-    height: 80px;
-    width: 52px;
-    background: repeating-linear-gradient( 90deg, #606060, #000000 10px);
-    transform: rotateX(0deg);
-    transform-origin: 0 100%;
-    transition: all 600ms ease-in-out;
-    will-change: transform;
-    filter: drop-shadow(-4px 50px 30px #000000);
+.pedal > * {
+  border-radius: 25%;
+  padding: 10px;
+  height: 80px;
+  width: 52px;
+  background: repeating-linear-gradient(90deg, #606060, #000000 10px);
+  transform: rotateX(0deg);
+  transform-origin: 0 100%;
+  transition: all 600ms ease-in-out;
+  will-change: transform;
+  filter: drop-shadow(-4px 50px 30px #000000);
 }
 .pedals .pedal-brake {
-    right: 26%;
+  right: 26%;
 }
 .pedals .pedal-accelerator {
-    right: 19%;
+  right: 19%;
 }
 
-
-.camera{
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    right: 47%;
-    top: 58%;
-    border-radius: 50%;
-    padding: 10px;
+.camera {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  right: 47%;
+  top: 58%;
+  border-radius: 50%;
+  padding: 10px;
 }
 
-.rear-view-mirror{
-    position: absolute;
-    top: 45px;
-    right: 40.3%;
-    width: 350px;
-    height: 170px;
-    border-bottom-right-radius: 50px 185px;
-    border-bottom-left-radius: 50px 185px;
-    border-top-left-radius: 230px 40px;
-    border-top-right-radius: 230px 40px;
+.rear-view-mirror {
+  position: absolute;
+  top: 45px;
+  right: 40.3%;
+  width: 350px;
+  height: 170px;
+  border-bottom-right-radius: 50px 185px;
+  border-bottom-left-radius: 50px 185px;
+  border-top-left-radius: 230px 40px;
+  border-top-right-radius: 230px 40px;
+}
+
+@keyframes pushButton {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(0.85);
+  }
+  75% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
