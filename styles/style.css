@@ -55,7 +55,6 @@ main {
   flex-direction: row;
   padding: 4px 3px;
   margin: auto;
-  margin-top: 20px;
 }
 
 /* paint not glowing LEDs */
@@ -71,7 +70,7 @@ main {
 }
 
 /* paint glowing LEDs */
-.level:before {
+.level::before {
   width: 100%;
   height: 100%;
   content: " ";
@@ -83,15 +82,12 @@ main {
   background-image: linear-gradient(to top, red 0%, yellow 50%,green 100%);
   background-size: 100% 100%;
   filter: drop-shadow(0px 0px 7px #ffffff99);
-  animation: level-animation 2500ms;
+  animation: level-animation 300s;
 }
 
 @keyframes level-animation {
   0% {
     clip-path: inset(0% 0 0 0);
-  }
-  50% {
-    clip-path: inset(40% 0 0 0);
   }
   100% {
     clip-path: inset(100% 0 0 0);

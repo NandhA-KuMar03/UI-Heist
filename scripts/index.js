@@ -1,4 +1,4 @@
-import {appConstants, colors, durations} from "../constants/appConstants.js";
+import {appConstants, colors, durations, fuelRefillAnimation} from "../constants/appConstants.js";
 
 var car = {
     isOn : false,
@@ -7,10 +7,10 @@ var car = {
     fuel : 60,
 }
 
-function updateFuel(isConsumed, isRefilled) {
-    if(isRefilled) {
+function updateFuel(isRefilled) {
+    if(isRefilled && car.isOn) {
         car.fuel = 60;
-    } else if (isConsumed) {
+        $('head').append(fuelRefillAnimation);
     }
 }
 
@@ -42,10 +42,10 @@ function showMap(){
 function startCar() {
     if(!car.isOn) {
         car.isOn = true;
-        car.fuel = 60;
         $(".engine").css({"background-color": colors.ENGINE_START});
         $("#engineStartAudio")[0].play();
         showMap();
+        $('head').append(fuelRefillAnimation);
     }
 }
 
@@ -61,8 +61,8 @@ function stopCar() {
         $temperatureContainer.empty();
         $mapContainer.empty();
         $(".engine").css({"background-color": colors.ENGINE_STOP});
-        // TODO: replace with engine off sound
-        $("#engineStartAudio")[0].play();
+        $("#engineStopAudio")[0].play();
+        $(".level::before").pause();
     }
 }
 
@@ -169,6 +169,7 @@ function updateTimeGreetings(){
         else if(event.key == "c" || event.key == "C") showRearViewCamera();
         else if(event.key == "e" || event.key == "E") stopCar();
         else if(event.key == "a" || event.key == "A") accelerate(true);
+        else if(event.key == "r" || event.key == "R") updateFuel(true);
     });
 
     $(document).on("keyup", function (event) {
@@ -183,7 +184,6 @@ function updateTimeGreetings(){
         if(car.isOn && car.fuel > 0) {
             car.fuel = (car.fuel-0.2).toFixed(2);
             updateTimeGreetings();
-            console.log(car);
         }
     },1000);
 }());
