@@ -284,3 +284,30 @@ main {
     transform: scale(1);
   }
 }
+
+.time-container{
+  position: absolute; 
+  top: 10px; 
+  left: 17%;
+  width: 50px; 
+  height: 22px; 
+  color: cyan;
+}
+
+.greetings-container{
+  position: absolute; 
+  top: 10px; 
+  left: 38%;
+  width: 275px; 
+  height: 22px; 
+  color: cyan;
+}
+
+.temperature-container{
+  position: absolute; 
+  top: 10px; 
+  right: 17%;
+  width: 50px; 
+  height: 22px; 
+  color: cyan;
+}

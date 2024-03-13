@@ -101,6 +101,27 @@ function showRearViewCamera(){
     }
 }
 
+function getGreetings(hour){
+    if(hour >= 6 && hour < 11)
+        return "Good Morning..!";
+    else if(hour >= 11 && hour < 16)
+        return "Good Afternoon..!";
+    else if(hour >= 16 && hour < 19)
+        return "Good Evening..!";
+    else
+        return "Good Night..!";
+}
+
+function updateTimeGreetings(){
+    const $greetingsContainer = $('.greetings-container');
+    const $timeContainer = $('.time-container');
+    const $temperatureContainer = $('.temperature-container');
+    var $date = new Date();
+    $timeContainer.empty().append($date.getHours() + ":" + $date.getMinutes());
+    $greetingsContainer.empty().append(getGreetings($date.getHours())+ " from Kavya & Nandha");
+    $temperatureContainer.empty().append("18° C");
+}
+
 (function(){
     let carStartKeyCode = 83;
     $(document).dbKeypress(carStartKeyCode,function(){
@@ -127,7 +148,8 @@ function showRearViewCamera(){
     //1sec-0.2l
     let fuelConsumptionInterval = setInterval(function(){
         if(car.isOn && car.fuel > 0) {
-            car.fuel= (car.fuel-0.2).toFixed(2);
+            car.fuel = (car.fuel-0.2).toFixed(2);
+            updateTimeGreetings();
             console.log(car);
         }
     },1000);
