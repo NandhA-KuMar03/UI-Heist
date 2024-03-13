@@ -37,10 +37,103 @@ main {
 .car-container .components .dashboard {
     border: 1px solid white;
 }
+
+.car-container .components .dashboard > * {
+    position: absolute;
+}
+
+.dash-panel {
+    height: 160px;
+    width: 160px;
+    border: 3px solid #3d85ea;
+    color: #3d85ea;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(#3d85ea 10%, #2a2a2a 10%);
+}
+.dash-panel span {
+    font-size: 10px;
+    font-style: italic;
+    position: absolute;
+}
+.dash-panel span:nth-child(1) {
+    top: 60%;
+    left: 8%;
+}
+.dash-panel span:nth-child(2) {
+    top: 40%;
+    left: 5%;
+}
+.dash-panel span:nth-child(3) {
+    top: 22%;
+    left: 10%;
+}
+.dash-panel span:nth-child(4) {
+    top: 8%;
+    left: 24%;
+}
+.dash-panel span:nth-child(5) {
+    top: 3%;
+    left: 47%;
+}
+.dash-panel span:nth-child(6) {
+    top: 8%;
+    right: 25%;
+}
+.dash-panel span:nth-child(7) {
+    top: 22%;
+    right: 12%;
+}
+.dash-panel span:nth-child(8) {
+    top: 40%;
+    right: 7%;
+}
+.dash-panel span:nth-child(9) {
+    top: 60%;
+    right: 10%;
+}
+.dash-panel span:nth-child(10) {
+    font-size: 0.8em;
+    top: 15%;
+    right: 42.5%;
+}
+
+.dash {
+    width: 5px;
+    height: 50px;
+    background-color: #3d85ea;
+    position: relative;
+    display: block;
+    transition: all 10s ease;
+    transform: rotate(66deg);
+    transform-origin: top right;
+    margin: 100px auto;
+    margin-top: 50%;
+    margin-right: 50%;
+    border-radius: 0px 0px 50% 50%;
+}
+
+.active-ac {
+    transform: rotate(293deg);
+}
+
+.car-container .components .dashboard .engine {
+    height: 45px;
+    width: 45px;
+    right: 14.5%;
+    top: 26%;
+    border-radius: 50%;
+}
+
 .car-container .components .steer-wheel {
     position : absolute;
-    right:14%;
-    width: 20%;
+    right: 19%;
+    width: 16%;
+    top: 12%;
 } 
 
 .car-container .components .enabled{
@@ -59,8 +152,8 @@ main {
 .pedal>* {
     border-radius: 25%;
     padding: 10px;
-    height: 90px;
-    width: 60px;
+    height: 80px;
+    width: 52px;
     background: repeating-linear-gradient( 90deg, #606060, #000000 10px);
     transform: rotateX(0deg);
     transform-origin: 0 100%;
@@ -69,22 +162,12 @@ main {
     filter: drop-shadow(-4px 50px 30px #000000);
 }
 .pedals .pedal-brake {
-    right: 24%;
+    right: 26%;
 }
 .pedals .pedal-accelerator {
-    right: 17%;
+    right: 19%;
 }
 
-.pedal .accelerator:hover {
-    transform: rotateX(40deg);
-}
-.pedal .brake:hover {
-    transform: scale(0.8);
-}
-/* Can not be defined in css, since values has to be calculated
-@keyframes steerWheel {
-    
-} */
 
 .camera{
     position: absolute;

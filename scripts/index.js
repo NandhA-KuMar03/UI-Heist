@@ -1,28 +1,71 @@
-let steerWheelAngle = 0;
-const angleStepCount = 15;
+import {appConstants, colors, durations} from "../constants/appConstants.js";
+
+var car = {
+    isOn : false,
+    steerWheelAngle: 0,
+    speed : 0,
+    fuel : 60,
+}
+
+function updateFuel(isConsumed, isRefilled) {
+    if(isRefilled) {
+        car.fuel = 60;
+    } else if (isConsumed) {
+    }
+}
+
+function startCar() {
+    if(!car.isOn) {
+        car.isOn = true;
+        car.fuel = 60;
+    
+        $(".engine").css({"background-color": colors.ENGINE_START, "transition-duration": "1000ms"});
+        $("#engineStartAudio")[0].play();
+    }
+}
+
+function stopCar() {
+    if(car.isOn){
+        car.isOn = false;
+    
+        $(".engine").css("background-color", colors.ENGINE_STOP);
+        // TODO: replace with engine off sound
+        $("#engineStartAudio")[0].play();
+    }
+}
+
+function accelerate(isAccelerated) {
+    if(car.isOn) {
+        if(isAccelerated) {
+            $(".dash").addClass("active-ac");
+            $(".pedal .accelerator").css({"transform": "rotateX(40deg)"});
+        } else {
+            $(".dash").removeClass("active-ac");
+            $(".pedal .accelerator").css({"transform": "rotateX(0deg)"});
+        }
+    }
+}
 
 function brakeActions(action) {
-    let $brakePedal = $(".pedal .brake");
-    if(action === "apply")
-        $brakePedal.css({transform: "scale(0.8)"});
-    else if(action=="release")
-        $brakePedal.css({transform: "scale(1)"});
+    if(car.isOn) {
+        let $brakePedal = $(".pedal .brake");
+        if(action === "apply")
+            $brakePedal.css({transform: "scale(0.8)"});
+        else if(action=="release")
+            $brakePedal.css({transform: "scale(1)"});
+    }
 }
 
 function steerWheel(direction, isReleased) {
-    let angle = angleStepCount;
+    let angle = appConstants.ANGLE_STEP_COUNT;
     if(direction === "left") angle*= -1;
     if(isReleased){
-        steerWheelAngle = 0;
-        $(".steer-wheel").css({ "transform": `rotate(${steerWheelAngle}deg)`, "transition-delay": "500ms", "transition-property": "transform"})
+        car.steerWheelAngle = 0;
+        $(".steer-wheel").css({ "transform": `rotate(${car.steerWheelAngle}deg)`, "transition-duration": "750ms"});
     } else {
-        // while(true){--------- find logic to repeat
-            steerWheelAngle = (steerWheelAngle+angle)%360;
-            $(".steer-wheel").css({transform: `rotate(${steerWheelAngle}deg)`});
-        // }
+        car.steerWheelAngle = (car.steerWheelAngle+angle)%360;
+        $(".steer-wheel").css({transform: `rotate(${car.steerWheelAngle}deg)`, "transition-duration": "0ms"});
     }
-    console.log(direction);
-    console.log(steerWheelAngle+"   "+$(".steer-wheel").css("transform"));
 }
 
 function showRearViewCamera(){
@@ -64,16 +107,33 @@ function showRearViewCamera(){
 }
 
 (function(){
+    let carStartKeyCode = 83;
+    $(document).dbKeypress(carStartKeyCode,function(){
+        startCar();
+    });
+        
+    // TODO : change all to keycodes
     $(document).on("keydown", function (event) {
         if(event.key == "ArrowRight") steerWheel("right", false);
         else if(event.key == "ArrowLeft") steerWheel("left", false);
         else if(event.key == "b" || event.key == "B") brakeActions("apply");
         else if(event.key == "c" || event.key == "C") showRearViewCamera();
+        else if(event.key == "e" || event.key == "E") stopCar();
+        else if(event.key == "a" || event.key == "A") accelerate(true);
     });
 
     $(document).on("keyup", function (event) {
         if(event.key == "ArrowRight") steerWheel("left", true);
         else if(event.key == "ArrowLeft") steerWheel("right", true);
         else if(event.key == "b" || event.key == "B") brakeActions("release");
+        else if(event.key == "a" || event.key == "A") accelerate(false);
     });
+
+    //1sec-0.2l
+    let fuelConsumptionInterval = setInterval(function(){
+        if(car.isOn && car.fuel > 0) {
+            car.fuel= (car.fuel-0.2).toFixed(2);
+            console.log(car);
+        }
+    },1000);
 }());

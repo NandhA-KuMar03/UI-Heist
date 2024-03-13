@@ -12,7 +12,29 @@
         <main>
             <div class="car-container">
                 <div class="components">
-                    <div class="dashboard"></div>
+                    <div class="dashboard">
+                        
+                        <div class="dash-panel">
+                            <span>0</span>
+                            <span>20</span>
+                            <span>40</span>
+                            <span>60</span>
+                            <span>80</span>
+                            <span>100</span>
+                            <span>120</span>
+                            <span>140</span>
+                            <span>160</span>
+                            <span>km/h</span>
+                            <div class="dash"></div>
+                        </div>
+
+                        <div class="engine">
+                            <img src="./assets/images/components/engine-button.png" alt="engine button"/>
+                        </div>
+                        <audio id="engineStartAudio">
+                            <source src="./assets/audio/engine-start.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
                     <div class="steer-wheel">
                         <img src="assets/images/components/steering-wheel.png" alt="Steer wheel"/>
                     </div>
@@ -29,12 +51,13 @@
                     </div>
                 </div>
                 <div class="rear-view-mirror d-none">
-                    <video id="myVidPlayer" controls muted autoplay></video>
+                    <video id="myVidPlayer" muted></video>
                 </div>
             </div>
         </main>
 
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-        <script src="scripts/index.js"></script>
+        <script src="scripts/lib/jquery.double-keypress.js"></script>
+        <script src="scripts/index.js" type="module"></script>
     </body>
 </html>
